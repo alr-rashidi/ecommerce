@@ -4,13 +4,13 @@ import React from "react";
 type NavigationDataType = {
   title: string;
   href: string;
-  active?: boolean;
+  isActive?: boolean;
 }[];
 const navigationData: NavigationDataType = [
   {
     title: "Home",
     href: "/",
-    active: true,
+    isActive: true,
   },
   {
     title: "About",
@@ -33,7 +33,7 @@ const Navigation = () => {
         <li key={item.href}>
           <Link
             href={item.href}
-            className={`text-sm font-medium hover:text-neutral-900 transition ${item.active ? "text-neutral-900" : "text-neutral-400"}`}
+            className={`text-sm font-medium hover:text-neutral-900 transition ${item.isActive ? "text-neutral-900" : "text-neutral-400"}`}
           >
             {item.title}
           </Link>
