@@ -5,7 +5,7 @@ type Sizes = "sm" | "md" | "lg";
 
 const variantMaps: Record<Variants, string> = {
   primary: "bg-primary hover:bg-primary/85 text-white",
-  secondary: "bg-secondary hover:bg-secondary/85 text-white",
+  secondary: "bg-secondary hover:bg-secondary/85 text-primary",
   destructive: "bg-destructive hover:bg-destructive/85 text-white",
   outline:
     "border border-secondary hover:bg-secondary hover:text-primary text-primary",
