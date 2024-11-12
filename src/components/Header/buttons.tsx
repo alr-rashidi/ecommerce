@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../ui/button";
 
 const Buttons = () => {
-  const loggedIn = false;
+  const loggedIn = true;
 
   if (!loggedIn) {
     return (
@@ -15,9 +15,9 @@ const Buttons = () => {
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="flex items-center gap-4 h-full">
       <IoCartOutline className="cursor-pointer size-6" />
-      <FaUserCircle className="cursor-pointer h-full" />
+      <FaUserCircle className="cursor-pointer h-full w-max" />
     </div>
   );
 };
