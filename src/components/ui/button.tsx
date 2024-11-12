@@ -4,9 +4,9 @@ type Variants = "primary" | "secondary" | "destructive" | "outline";
 type Sizes = "sm" | "md" | "lg";
 
 const variantMaps: Record<Variants, string> = {
-  primary: "bg-primary text-white",
-  secondary: "bg-secondary text-white",
-  destructive: "bg-destructive text-white",
+  primary: "bg-primary hover:bg-primary/85 text-white",
+  secondary: "bg-secondary hover:bg-secondary/85 text-white",
+  destructive: "bg-destructive hover:bg-destructive/85 text-white",
   outline:
     "border border-secondary hover:bg-secondary hover:text-primary text-primary",
 };
