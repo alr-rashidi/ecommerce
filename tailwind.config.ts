@@ -10,11 +10,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#444444",
-        secondary: "#aaaaaa",
-        destructive: "#aa0000",
-        success: "#00aa00",
-        warning: "#aaaa00",
+        primary: "#222222",
+        secondary: "#eeeeee",
+        destructive: "#dd0000",
+        success: "#00dd00",
+        warning: "#dddd00",
       },
     },
   },
