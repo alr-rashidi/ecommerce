@@ -8,7 +8,7 @@ import SubNav from "./subNav";
 const Header = () => {
   return (
     <nav>
-      <div className="w-full gap-5 max-w-5xl mx-auto flex justify-between items-center py-4">
+      <div className="w-full px-3 gap-5 max-w-5xl mx-auto flex justify-between items-center py-4 max-lg:py-2">
         <Logo />
         <SearchBar />
         <Navigation />
