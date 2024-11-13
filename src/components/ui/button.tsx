@@ -30,6 +30,7 @@ const Button = (props: ButtonProps) => {
     <button
       className={`${variantMaps[variant]} ${sizeMaps[size]} rounded-md transition`}
       onClick={onClick}
+      {...props}
     >
       {children}
     </button>
