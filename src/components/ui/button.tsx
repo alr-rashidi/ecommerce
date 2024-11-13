@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 
 type Variants = "primary" | "secondary" | "destructive" | "outline";
@@ -24,12 +25,22 @@ type ButtonProps = {
 } & Omit<React.ComponentPropsWithoutRef<"button">, "ref" | "variant" | "size">;
 
 const Button = (props: ButtonProps) => {
-  const { variant = "primary", size = "md", children, onClick } = props;
+  const {
+    variant = "primary",
+    size = "md",
+    children,
+    className,
+    onClick,
+    ...userProps
+  } = props;
+
+  const classes = clsx([variantMaps[variant], sizeMaps[size], className]);
+
   return (
     <button
-      className={`${variantMaps[variant]} ${sizeMaps[size]} rounded-md transition`}
+      className={`rounded-md transition ${classes}`}
       onClick={onClick}
-      {...props}
+      {...userProps}
     >
       {children}
     </button>
