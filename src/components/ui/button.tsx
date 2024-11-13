@@ -8,7 +8,7 @@ const variantMaps: Record<Variants, string> = {
   secondary: "bg-secondary hover:bg-secondary/85 text-primary",
   destructive: "bg-destructive hover:bg-destructive/85 text-white",
   outline:
-    "border border-secondary hover:bg-secondary hover:text-primary text-primary",
+    "border border-secondary hover:bg-secondary hover:text-primary text-secondary",
 };
 const sizeMaps: Record<Sizes, string> = {
   sm: "px-4 py-2 text-sm",
