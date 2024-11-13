@@ -20,7 +20,7 @@ const BigBanner = () => {
         <p className="text-sm font-medium text-neutral-500 mb-8">
           Created to change everything for the better. For everyone
         </p>
-        <Button variant="outline" size="sm" className="w-28">
+        <Button variant="outline" size="sm" className="w-max">
           Shop now
         </Button>
       </div>
