@@ -21,8 +21,7 @@ type ButtonProps = {
   size?: Sizes;
   children: React.ReactNode;
   onClick?: () => void;
-  [key: string]: unknown;
-};
+} & Omit<React.ComponentPropsWithoutRef<"button">, "ref" | "variant" | "size">;
 
 const Button = (props: ButtonProps) => {
   const { variant = "primary", size = "md", children, onClick } = props;
