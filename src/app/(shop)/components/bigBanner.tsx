@@ -12,12 +12,12 @@ const BigBanner = () => {
           Pro.Beyond.
         </h3>
         <h1
-          className={`text-6xl ${inter.className} font-extralight text-white mb-2`}
+          className={`text-6xl ${inter.className} font-extralight text-white mb-1`}
         >
           IPhone 14&nbsp;
           <span className="font-bold">Pro</span>
         </h1>
-        <p className="text-sm font-medium text-neutral-500 mb-8">
+        <p className="text-sm font-medium text-neutral-500 mb-5">
           Created to change everything for the better. For everyone
         </p>
         <Button variant="outline" size="sm" className="w-max">
