@@ -1,9 +1,7 @@
 import Button from "@/components/ui/button";
-import { Inter } from "next/font/google";
 import Image from "next/image";
 import React from "react";
 
-const inter = Inter();
 const MiniBanners = () => {
   return (
     <div className="max-lg:flex max-lg:flex-col grid grid-cols-4 grid-rows-5 max-lg:h-full max-lg:w-full h-[80vh] max-w-[90rem] mx-auto max-lg:max-h-max max-h-[40rem] ">
@@ -16,9 +14,7 @@ const MiniBanners = () => {
           alt="Playstation"
         />
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pr-16">
-          <h3
-            className={`${inter.className} w-max max-xl:text-4xl text-5xl font-semibold mb-2`}
-          >
+          <h3 className="w-max max-xl:text-4xl text-5xl font-semibold mb-2">
             PlayStation 5
           </h3>
           <p className="max-xl:text-xs text-sm max-lg:text-center  text-neutral-500">
@@ -36,9 +32,7 @@ const MiniBanners = () => {
           alt="Playstation"
         />
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pr-16 pl-4">
-          <h3
-            className={`${inter.className} w-max max-lg:text-3xl max-xl:text-lg text-2xl font-light mb-3`}
-          >
+          <h3 className="w-max max-lg:text-3xl max-xl:text-lg text-2xl font-light mb-3">
             Apple Airpods&nbsp;
             <br className="max-lg:hidden relative" />
             <span className="font-bold">Max</span>
@@ -57,9 +51,7 @@ const MiniBanners = () => {
           alt="Playstation"
         />
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pr-16 pl-4">
-          <h3
-            className={`${inter.className} w-max text-white max-lg:text-3xl max-xl:text-lg text-2xl font-light mb-3`}
-          >
+          <h3 className="w-max text-white max-lg:text-3xl max-xl:text-lg text-2xl font-light mb-3">
             Apple Vision&nbsp;
             <br className="max-lg:hidden relative" />
             <span className="font-bold">Pro</span>
@@ -71,9 +63,7 @@ const MiniBanners = () => {
       </div>
       <div className="col-start-3 col-span-2 row-span-5 flex max-lg:flex-col-reverse max-lg:p-8 gap-4 max-lg:max-h-[40rem] items-center bg-neutral-200">
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pl-16">
-          <h2
-            className={`${inter.className} w-max max-xl:text-4xl text-5xl font-extralight mb-2`}
-          >
+          <h2 className="w-max max-xl:text-4xl text-5xl font-extralight mb-2">
             Macbook&nbsp;
             <span className="font-bold">Air</span>
           </h2>

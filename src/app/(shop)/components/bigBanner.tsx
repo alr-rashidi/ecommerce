@@ -1,19 +1,13 @@
 import React from "react";
-import { Inter } from "next/font/google";
 import Button from "@/components/ui/button";
 import Image from "next/image";
 
-const inter = Inter();
 const BigBanner = () => {
   return (
     <div className="w-full max-lg:h-full h-[70vh] max-lg:max-h-max max-h-[30rem] flex max-lg:flex-col items-center justify-center gap-44 max-lg:gap-0 bg-gradient-to-br from-neutral-900 overflow-hidden to-[#211C24]">
       <div className="flex flex-col max-lg:items-center py-20">
-        <h3 className={`${inter.className} font-semibold text-neutral-500`}>
-          Pro.Beyond.
-        </h3>
-        <h1
-          className={`text-6xl ${inter.className} font-extralight text-white mb-1`}
-        >
+        <h3 className="font-semibold text-neutral-500">Pro.Beyond.</h3>
+        <h1 className="text-6xl font-extralight text-white mb-1">
           IPhone 14&nbsp;
           <span className="font-bold">Pro</span>
         </h1>
