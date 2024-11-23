@@ -5,14 +5,17 @@ import { productSchema } from "@/server/validations/product";
 import { HydratedDocument } from "mongoose";
 import { NextRequest } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
   try {
     await connectToDB();
     console.log("ProductModel:", ProductModel);
-    const data = await ProductModel.find({}).populate({
-      path: "category",
+    const searchParams = new URL(req.url).searchParams;
+    const limit = parseInt(searchParams.get("limit") || "10"); // Default limit is 10
+    const data = await ProductModel.find({}).limit(limit).populate({
+      path: "Category",
       model: CategoryModel,
     });
+
     return Response.json(data);
   } catch (err) {
     console.error("Failed to fetch product: ", err);
