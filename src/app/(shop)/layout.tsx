@@ -12,7 +12,7 @@ const inter = Inter({
 
 const layout = ({ children }: layoutProps) => {
   return (
-    <div className={inter.className}>
+    <div className={`${inter.className} pt-14 lg:pt-28`}>
       <Header />
       {children}
     </div>

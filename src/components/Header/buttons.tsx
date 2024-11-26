@@ -15,7 +15,7 @@ const Buttons = () => {
   }
 
   return (
-    <div className="flex items-center gap-4 h-full">
+    <div className="hidden lg:flex items-center gap-4 h-full">
       <IoCartOutline className="cursor-pointer size-6" />
       <FaUserCircle className="cursor-pointer h-full w-max" />
     </div>
