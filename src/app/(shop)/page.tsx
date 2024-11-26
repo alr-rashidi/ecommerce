@@ -3,6 +3,7 @@ import BigBanner from "./components/bigBanner";
 import MiniBanners from "./components/miniBanners";
 import ByCategory from "./components/byCategory";
 import Products from "./components/products";
+import MiniBanners2 from "./components/miniBanners2";
 
 const Page = () => {
   return (
@@ -11,6 +12,7 @@ const Page = () => {
       <MiniBanners />
       <ByCategory />
       <Products />
+      <MiniBanners2 />
     </div>
   );
 };
