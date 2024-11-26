@@ -11,7 +11,18 @@ export const GET = async (req: NextRequest) => {
     console.log("ProductModel:", ProductModel);
     const searchParams = new URL(req.url).searchParams;
     const limit = parseInt(searchParams.get("limit") || "10"); // Default limit is 10
-    const data = await ProductModel.find({}).limit(limit).populate({
+    const categoryId = searchParams.get("category");
+    console.log(categoryId);
+
+    type queryType = {
+      category?: string;
+    };
+    const query: queryType = {};
+    if (categoryId) {
+      query.category = categoryId;
+    }
+
+    const data = await ProductModel.find(query).limit(limit).populate({
       path: "Category",
       model: CategoryModel,
     });
