@@ -11,7 +11,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div
       key={product.name}
-      className="flex flex-col items-center gap-3 bg-neutral-100 p-5 rounded-lg"
+      className="h-full flex flex-col items-center gap-3 bg-neutral-100 p-5 rounded-lg"
     >
       <Image
         src={product.images[0]}
