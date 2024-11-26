@@ -4,16 +4,12 @@ import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import ProductsGrid from "@/components/product/productGrid";
 
-type TabsType = "new" | "best" | "fetured";
+type TabsType = "new";
 type TabType = {
   value: TabsType;
   label: string;
 };
-const tabs: TabType[] = [
-  { value: "new", label: "New Arrival" },
-  { value: "best", label: "Best Sellers" },
-  { value: "fetured", label: "Fetured Products" },
-];
+const tabs: TabType[] = [{ value: "new", label: "New Arrival" }];
 
 const Products = () => {
   const [selectedTab, setSelectedTab] = useState<TabsType>("new");
@@ -26,7 +22,8 @@ const Products = () => {
     const getData = async () => {
       setLoading(true);
       const response = await fetch(
-        process.env.NEXT_PUBLIC_API_BASE_URL + "/api/product?limit=8"
+        process.env.NEXT_PUBLIC_API_BASE_URL +
+          `/api/product?limit=8&sort=${selectedTab}`
       );
       const data = await response.json();
       setProducts(data);
