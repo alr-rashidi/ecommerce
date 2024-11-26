@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
     required: true,
     min: 0.0001, //Price must be greater than zero.
   },
-  Category: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
     required: true,
