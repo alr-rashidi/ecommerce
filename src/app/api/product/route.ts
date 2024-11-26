@@ -23,7 +23,7 @@ export const GET = async (req: NextRequest) => {
     }
 
     const data = await ProductModel.find(query).limit(limit).populate({
-      path: "Category",
+      path: "category",
       model: CategoryModel,
     });
 
