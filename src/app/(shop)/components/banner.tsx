@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@/components/ui/button";
 import Image from "next/image";
 
-const BigBanner = () => {
+const Banner = () => {
   return (
     <div className="w-full max-lg:h-full h-[70vh] max-lg:max-h-max max-h-[30rem] flex max-lg:flex-col items-center justify-center gap-44 max-lg:gap-0 bg-gradient-to-br from-neutral-900 overflow-hidden to-[#211C24]">
       <div className="flex flex-col max-lg:items-center py-20">
@@ -31,4 +31,4 @@ const BigBanner = () => {
   );
 };
 
-export default BigBanner;
+export default Banner;
