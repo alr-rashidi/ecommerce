@@ -5,6 +5,7 @@ import ByCategory from "./components/byCategory";
 import Products from "./components/products";
 import MiniBanners2 from "./components/miniBanners2";
 import SmartphoneSlider from "./components/smartphoneSlider";
+import Banner2 from "./components/banner2";
 
 const Page = () => {
   return (
@@ -15,6 +16,7 @@ const Page = () => {
       <Products />
       <MiniBanners2 />
       <SmartphoneSlider />
+      <Banner2 />
     </div>
   );
 };
