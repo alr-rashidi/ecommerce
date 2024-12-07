@@ -27,35 +27,35 @@ const MobileNav = () => {
   return (
     <div className="lg:hidden">
       <button
-        className="flex items-center text-neutral-400 border-neutral-400 hover:text-neutral-900 hover:border-neutral-900 transition"
+        className="flex items-center border-neutral-400 text-neutral-400 transition hover:border-neutral-900 hover:text-neutral-900"
         onClick={handleToggle}
       >
         <FiMenu size={24} />
       </button>
       <div
         className={`
-          fixed pointer-events-none top-0 left-0 bottom-0 right-0 w-full h-full bg-black z-10 transition
-          ${isOpen ? "opacity-50 pointer-events-auto" : "opacity-0"}`}
+          ${isOpen ? "opacity-50 pointer-events-auto" : "opacity-0"} pointer-events-none fixed bottom-0 left-0 right-0
+          top-0 z-10 h-full w-full bg-black transition`}
       />
       <div
         className={`
-          overflow-y-auto fixed pt-14 p-4 top-0 right-0 w-[260px] h-full bg-white z-10 transition
-          ${isOpen ? "translate-x-0" : "translate-x-full"}
+          ${isOpen ? "translate-x-0" : "translate-x-full"} fixed right-0 top-0 z-10 h-full w-[260px]
+          overflow-y-auto bg-white p-4 pt-14 transition
           `}
       >
         <button
-          className="absolute top-0 right-0 px-3 py-4 text-neutral-400 hover:text-neutral-900 transition"
+          className="absolute right-0 top-0 px-3 py-4 text-neutral-400 transition hover:text-neutral-900"
           onClick={handleToggle}
         >
           <FiMenu size={24} />
         </button>
         <SearchBar />
-        <ul className="flex flex-col items-center px-3 gap-2 mt-4">
+        <ul className="mt-4 flex flex-col items-center gap-2 px-3">
           {navigationItems.map(item => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`text-lg font-medium hover:text-neutral-900 transition ${item.isActive ? "text-neutral-900" : "text-neutral-400"}`}
+                className={`${item.isActive ? "text-neutral-900" : "text-neutral-400"} text-lg font-medium transition hover:text-neutral-900`}
               >
                 {item.title}
               </Link>
