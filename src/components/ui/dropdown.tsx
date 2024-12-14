@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import React from "react";
 
-type Variants = "outline" | "outlineAlt";
+export type DropdownVariants = "outline" | "outlineAlt";
 type Sizes = "sm" | "md" | "lg";
 
-const variantMaps: Record<Variants, string> = {
+const variantMaps: Record<DropdownVariants, string> = {
   outline:
     "border border-secondary/20 focus:border-secondary/50 hover:bg-secondary/5 text-secondary",
   outlineAlt:
@@ -17,7 +17,7 @@ const sizeMaps: Record<Sizes, string> = {
 };
 
 type DropdownProps = {
-  variant?: Variants;
+  variant?: DropdownVariants;
   size?: Sizes;
   options: Array<{ value: string; label: string }>;
   onClick?: () => void;

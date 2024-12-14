@@ -7,9 +7,9 @@ import { NextRequest } from "next/server";
 export const GET = async () => {
   try {
     await connectToDB();
-    const categories = await CategoryModel.find({}, "name");
+    const categories = await CategoryModel.find({});
     return Response.json(
-      categories.map(category => category.name),
+      categories,
       { status: 200 }
     );
   } catch (err) {

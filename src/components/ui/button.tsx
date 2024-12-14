@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 
-type Variants =
+export type ButtonVariants =
   | "primary"
   | "secondary"
   | "destructive"
@@ -9,7 +9,7 @@ type Variants =
   | "outlineAlt";
 type Sizes = "sm" | "md" | "lg";
 
-const variantMaps: Record<Variants, string> = {
+const variantMaps: Record<ButtonVariants, string> = {
   primary: "bg-primary hover:bg-primary/85 text-white",
   secondary: "bg-secondary hover:bg-secondary/85 text-primary",
   destructive: "bg-destructive hover:bg-destructive/85 text-white",
@@ -25,7 +25,7 @@ const sizeMaps: Record<Sizes, string> = {
 };
 
 type ButtonProps = {
-  variant?: Variants;
+  variant?: ButtonVariants;
   size?: Sizes;
   children: React.ReactNode;
   onClick?: () => void;

@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import React from "react";
 
-type Variants = "destructive" | "outline" | "outlineAlt";
+export type InputVariants = "destructive" | "outline" | "outlineAlt";
 type Sizes = "sm" | "md" | "lg";
 
-const variantMaps: Record<Variants, string> = {
+const variantMaps: Record<InputVariants, string> = {
   destructive:
     "border hover:bg-destructive/5 focus:bg-destructive/5 focus:border-destructive text-destructive",
   outline: "border hover:bg-primary/5 focus:bg-primary/5 focus:border-primary ",
@@ -18,7 +18,7 @@ const sizeMaps: Record<Sizes, string> = {
 };
 
 type InputProps = {
-  variant?: Variants;
+  variant?: InputVariants;
   size?: Sizes;
   onClick?: () => void;
 } & Omit<React.ComponentPropsWithoutRef<"input">, "ref" | "variant" | "size">;
