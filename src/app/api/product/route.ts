@@ -14,10 +14,10 @@ export const GET = async (req: NextRequest) => {
     const categoryId = searchParams.get("category");
     console.log(categoryId);
 
-    type queryType = {
+    type QueryType = {
       category?: string;
     };
-    const query: queryType = {};
+    const query: QueryType = {};
     if (categoryId) {
       query.category = categoryId;
     }
