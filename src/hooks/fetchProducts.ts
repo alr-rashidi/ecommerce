@@ -3,7 +3,7 @@ import { Error } from "mongoose";
 
 type FetchProductsPropsType = {
   sort?: string;
-  limit?: string;
+  limit?: number;
   page?: number;
   category?: string;
 };
@@ -13,7 +13,7 @@ export const fetchProducts = async (
   const { sort = "", limit = "12", page = 1, category } = props || {};
 
   const url = new URL(`/api/product`, process.env.NEXT_PUBLIC_API_BASE_URL);
-  url.searchParams.set("limit", limit);
+  url.searchParams.set("limit", String(limit));
   if (sort) {
     url.searchParams.set("sort", sort);
   }
