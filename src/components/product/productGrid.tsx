@@ -3,7 +3,6 @@ import React from "react";
 import { z } from "zod";
 import ProductCard from "./productCard";
 import Link from "next/link";
-import clsx from "clsx";
 
 type ProductGridProps = {
   products: z.infer<typeof productSchema>[];
@@ -15,16 +14,11 @@ const ProductsGrid = ({
   className,
   ...userProps
 }: ProductGridProps) => {
-  const classes = clsx(
-    "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5",
-    className
-  );
-
   if (products.length === 0) return <div>No products found.</div>;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className={classes} {...userProps}>
+    <div className={`flex flex-col gap-4 ${className}`} {...userProps}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {products.map(product => (
           <ProductCard key={product._id} product={product} />
         ))}
