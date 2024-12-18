@@ -17,7 +17,7 @@ export const GET = async (req: NextRequest) => {
     await connectToDB();
     console.log("ProductModel:", ProductModel);
     const searchParams = new URL(req.url).searchParams;
-    const searchQuery = searchParams.get("q");
+    const query = searchParams.get("q");
     const limit = parseInt(searchParams.get("limit") || "10");
     const sort = (searchParams.get("sort") as SortType) || "newest";
     const page = parseInt(searchParams.get("page") || "1");
@@ -26,18 +26,18 @@ export const GET = async (req: NextRequest) => {
     const categoryId = searchParams.get("category");
     console.log(categoryId);
 
-    const query: RootFilterQuery<z.infer<typeof productSchema>> = {};
-    if (searchQuery) {
-      query.$or = [
-        { name: { $regex: `.*${searchQuery}.*`, $options: "i" } },
-        { description: { $regex: `.*${searchQuery}.*`, $options: "i" } },
+    const mongooseQuery: RootFilterQuery<z.infer<typeof productSchema>> = {};
+    if (query) {
+      mongooseQuery.$or = [
+        { name: { $regex: `.*${query}.*`, $options: "i" } },
+        { description: { $regex: `.*${query}.*`, $options: "i" } },
       ];
     }
     if (categoryId) {
-      query.category = categoryId;
+      mongooseQuery.category = categoryId;
     }
     if (maxPrice | minPrice) {
-      query.price = {
+      mongooseQuery.price = {
         $gte: minPrice,
         $lte: maxPrice == 0 ? Infinity : maxPrice,
       };
@@ -53,7 +53,7 @@ export const GET = async (req: NextRequest) => {
       discount: { discount: -1 },
     };
 
-    const data = await ProductModel.find(query)
+    const data = await ProductModel.find(mongooseQuery)
       .skip((page - 1) * limit)
       .limit(limit)
       .populate({
@@ -61,7 +61,7 @@ export const GET = async (req: NextRequest) => {
         model: CategoryModel,
       })
       .sort(sortMap[sort]);
-    const dataCount = await ProductModel.countDocuments(query);
+    const dataCount = await ProductModel.countDocuments(mongooseQuery);
 
     return Response.json({
       total: dataCount,
