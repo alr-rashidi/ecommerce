@@ -15,7 +15,7 @@ export const fetchProducts = async (
 ): Promise<APIProductGetType> => {
   const {
     query,
-    sort = "",
+    sort,
     limit = "12",
     page = 1,
     category,
