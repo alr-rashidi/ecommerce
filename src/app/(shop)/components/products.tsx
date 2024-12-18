@@ -23,7 +23,7 @@ const Products = () => {
     const getData = async () => {
       setLoading(true);
 
-      const data = await fetchProducts({ sort: selectedTab });
+      const data = await fetchProducts({ sort: selectedTab, limit: 8 });
       setData(data);
       setLoading(false);
     };
