@@ -1,32 +1,30 @@
 "use client";
-import { productSchema } from "@/server/validations/product";
 import React, { useEffect, useState } from "react";
-import { z } from "zod";
 import ProductsGrid from "@/components/product/productGrid";
+import { APIProductGetType, SortType } from "@/app/api/product/route";
+import { fetchProducts } from "@/hooks/fetchProducts";
 
-type TabsType = "new";
 type TabType = {
-  value: TabsType;
+  value: SortType;
   label: string;
 };
-const tabs: TabType[] = [{ value: "new", label: "New Arrival" }];
+const tabs: TabType[] = [
+  { value: "newest", label: "New Arrival" },
+  { value: "discount", label: "Best Discounts" },
+  { value: "price-asc", label: "Price: Low to High" },
+];
 
 const Products = () => {
-  const [selectedTab, setSelectedTab] = useState<TabsType>("new");
-  const [products, setProducts] = useState<
-    z.infer<typeof productSchema>[] | null
-  >(null);
+  const [selectedTab, setSelectedTab] = useState<SortType>("newest");
+  const [data, setData] = useState<APIProductGetType>();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_API_BASE_URL +
-          `/api/product?limit=8&sort=${selectedTab}`
-      );
-      const data = await response.json();
-      setProducts(data);
+
+      const data = await fetchProducts({ sort: selectedTab });
+      setData(data);
       setLoading(false);
     };
 
@@ -48,8 +46,8 @@ const Products = () => {
       </div>
       {loading ? (
         <span>Loading...</span>
-      ) : products ? (
-        <ProductsGrid products={products} showMoreLink="#" />
+      ) : data ? (
+        <ProductsGrid products={data.products} showMoreLink="#" />
       ) : (
         <span>No products found</span>
       )}
