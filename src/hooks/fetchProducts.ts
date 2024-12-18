@@ -2,6 +2,7 @@ import { APIProductGetType } from "@/app/api/product/route";
 import { Error } from "mongoose";
 
 type FetchProductsPropsType = {
+  query?: string;
   sort?: string;
   limit?: number;
   page?: number;
@@ -13,6 +14,7 @@ export const fetchProducts = async (
   props?: FetchProductsPropsType
 ): Promise<APIProductGetType> => {
   const {
+    query,
     sort = "",
     limit = "12",
     page = 1,
@@ -23,6 +25,9 @@ export const fetchProducts = async (
 
   const url = new URL(`/api/product`, process.env.NEXT_PUBLIC_API_BASE_URL);
   url.searchParams.set("limit", String(limit));
+  if (query) {
+    url.searchParams.set("q", query);
+  }
   if (sort) {
     url.searchParams.set("sort", sort);
   }
