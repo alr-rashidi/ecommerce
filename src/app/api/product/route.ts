@@ -4,13 +4,22 @@ import { ProductModel } from "@/server/models/product";
 import { productSchema } from "@/server/validations/product";
 import { HydratedDocument } from "mongoose";
 import { NextRequest } from "next/server";
+import { z } from "zod";
 
+export type SortType = "newest" | "price-asc" | "price-desc" | "discount";
+export type APIProductGetType = {
+  products: z.infer<typeof productSchema>[];
+  total: number;
+  totalPages: number;
+};
 export const GET = async (req: NextRequest) => {
   try {
     await connectToDB();
     console.log("ProductModel:", ProductModel);
     const searchParams = new URL(req.url).searchParams;
-    const limit = parseInt(searchParams.get("limit") || "10"); // Default limit is 10
+    const limit = parseInt(searchParams.get("limit") || "10");
+    const sort = (searchParams.get("sort") as SortType) || "newest";
+    const page = parseInt(searchParams.get("page") || "1");
     const categoryId = searchParams.get("category");
     console.log(categoryId);
 
@@ -21,13 +30,32 @@ export const GET = async (req: NextRequest) => {
     if (categoryId) {
       query.category = categoryId;
     }
+    type SortMapType = {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      [key: string]: { [key: string]: any };
+    };
+    const sortMap: SortMapType = {
+      newest: { createdAt: -1 },
+      "price-asc": { price: 1 },
+      "price-desc": { price: -1 },
+      discount: { discount: -1 },
+    };
 
-    const data = await ProductModel.find(query).limit(limit).populate({
-      path: "category",
-      model: CategoryModel,
+    const data = await ProductModel.find(query)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .populate({
+        path: "category",
+        model: CategoryModel,
+      })
+      .sort(sortMap[sort]);
+    const dataCount = await ProductModel.countDocuments(query);
+
+    return Response.json({
+      total: dataCount,
+      products: data,
+      totalPages: Math.ceil(dataCount / limit),
     });
-
-    return Response.json(data);
   } catch (err) {
     console.error("Failed to fetch product: ", err);
     return Response.json({ error: "Internal server Error" }, { status: 500 });
