@@ -2,7 +2,7 @@ import { connectToDB } from "@/server/connectToDB";
 import { CategoryModel } from "@/server/models/category";
 import { ProductModel } from "@/server/models/product";
 import { productSchema } from "@/server/validations/product";
-import { HydratedDocument } from "mongoose";
+import { HydratedDocument, RootFilterQuery } from "mongoose";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -20,15 +20,20 @@ export const GET = async (req: NextRequest) => {
     const limit = parseInt(searchParams.get("limit") || "10");
     const sort = (searchParams.get("sort") as SortType) || "newest";
     const page = parseInt(searchParams.get("page") || "1");
+    const maxPrice = parseInt(searchParams.get("maxPrice") || "0");
+    const minPrice = parseInt(searchParams.get("minPrice") || "0");
     const categoryId = searchParams.get("category");
     console.log(categoryId);
 
-    type QueryType = {
-      category?: string;
-    };
-    const query: QueryType = {};
+    const query: RootFilterQuery<z.infer<typeof productSchema>> = {};
     if (categoryId) {
       query.category = categoryId;
+    }
+    if (maxPrice | minPrice) {
+      query.price = {
+        $gte: minPrice,
+        $lte: maxPrice == 0 ? Infinity : maxPrice,
+      };
     }
     type SortMapType = {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
