@@ -17,6 +17,7 @@ export const GET = async (req: NextRequest) => {
     await connectToDB();
     console.log("ProductModel:", ProductModel);
     const searchParams = new URL(req.url).searchParams;
+    const searchQuery = searchParams.get("q");
     const limit = parseInt(searchParams.get("limit") || "10");
     const sort = (searchParams.get("sort") as SortType) || "newest";
     const page = parseInt(searchParams.get("page") || "1");
@@ -26,6 +27,12 @@ export const GET = async (req: NextRequest) => {
     console.log(categoryId);
 
     const query: RootFilterQuery<z.infer<typeof productSchema>> = {};
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: `.*${searchQuery}.*`, $options: "i" } },
+        { description: { $regex: `.*${searchQuery}.*`, $options: "i" } },
+      ];
+    }
     if (categoryId) {
       query.category = categoryId;
     }
