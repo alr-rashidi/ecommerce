@@ -1,17 +1,27 @@
-import React from "react";
-import { CiSearch } from "react-icons/ci";
+"use client";
+import React, { useState } from "react";
+import SearchBar from "../ui/searchBar";
+import { useRouter } from "next/navigation";
 
-const SearchBar = () => {
+const HeaderSearchBar = () => {
+  const [query, setQuery] = useState<string>("");
+  const router = useRouter();
+
+  const handleSearchBarKeyPress = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (e.key === "Enter" && query !== "") {
+      router.push(`/search?q=${query}`);
+    }
+  };
+
   return (
-    <div className="relative flex-1">
-      <input
-        type="text"
-        className="pl-10 text-sm bg-neutral-100 rounded-md w-full h-full py-2 px-4 text-neutral-700 placeholder-neutral-400 focus:outline-none"
-        placeholder="Search"
-      />
-      <CiSearch className="absolute top-1/2 left-3 -translate-y-1/2 text-xl text-neutral-500" />
-    </div>
+    <SearchBar
+      value={query}
+      onChange={e => setQuery(e.target.value)}
+      onKeyDown={handleSearchBarKeyPress}
+    />
   );
 };
 
-export default SearchBar;
+export default HeaderSearchBar;

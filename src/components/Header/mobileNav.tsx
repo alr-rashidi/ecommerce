@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
 import { navigationItems } from "./navigationItems";
 import Link from "next/link";
-import SearchBar from "./searchBar";
+import HeaderSearchBar from "./searchBar";
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -49,7 +49,7 @@ const MobileNav = () => {
         >
           <FiMenu size={24} />
         </button>
-        <SearchBar />
+        <HeaderSearchBar />
         <ul className="mt-4 flex flex-col items-center gap-2 px-3">
           {navigationItems.map(item => (
             <li key={item.href}>
