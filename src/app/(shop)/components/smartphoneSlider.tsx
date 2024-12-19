@@ -3,7 +3,7 @@ import { fetchProducts } from "@/hooks/fetchProducts";
 import React from "react";
 
 const SmartphoneSlider = async () => {
-  const data = await fetchProducts({ category: "673caa35936e398308d6f68c" });
+  const data = await fetchProducts({ category: "673cb21f936e398308d6f692" });
   return (
     <div>
       <ProductSlider
