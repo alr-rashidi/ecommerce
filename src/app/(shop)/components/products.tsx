@@ -47,7 +47,10 @@ const Products = () => {
       {loading ? (
         <span>Loading...</span>
       ) : data ? (
-        <ProductsGrid products={data.products} showMoreLink="#" />
+        <ProductsGrid
+          products={data.products}
+          showMoreLink={`/search?sort=${selectedTab}`}
+        />
       ) : (
         <span>No products found</span>
       )}
