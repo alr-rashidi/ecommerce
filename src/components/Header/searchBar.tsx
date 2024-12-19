@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import SearchBar from "../ui/searchBar";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const HeaderSearchBar = () => {
-  const [query, setQuery] = useState<string>("");
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState<string>(searchParams.get("q") || "");
   const router = useRouter();
 
   const handleSearchBarKeyPress = (
