@@ -69,7 +69,7 @@ const Pegination = ({
       <button
         className="flex items-center justify-center text-sm font-bold text-neutral-500 disabled:text-neutral-300 rounded aspect-square size-6"
         onClick={() => handlePageChange(page + 1)}
-        disabled={page == totalPages}
+        disabled={page == totalPages || totalPages == 0}
       >
         <FaChevronRight />
       </button>
