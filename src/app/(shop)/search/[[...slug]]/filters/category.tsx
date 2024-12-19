@@ -37,7 +37,9 @@ const CategoryFilter = () => {
   }, []);
 
   const handleCategoryChange = (category: string) => {
-    router.push("/search/" + category);
+    const searchParams = new URLSearchParams(window.location.search);
+    console.log(searchParams.toString());
+    router.push(`/search/${category}?${searchParams.toString()}`);
   };
 
   return (
