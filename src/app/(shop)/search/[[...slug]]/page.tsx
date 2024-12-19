@@ -27,7 +27,6 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [page, setPage] = useState(1);
-  const [sortOption, setSortOption] = useState<SortType>("newest");
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
     min: 0,
     max: 0,
@@ -53,6 +52,7 @@ const Page = () => {
     const fetch = async () => {
       try {
         setIsLoading(true);
+        const sortOption = searchParams.get("sort") || "newest";
 
         const data = await fetchProducts({
           query,
@@ -77,11 +77,18 @@ const Page = () => {
     };
 
     fetch();
-  }, [query, page, sortOption, slug, category, priceRange]);
+  }, [query, page, slug, category, priceRange, searchParams]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= data!.totalPages) setPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSortOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const url = new URL(window.location.href);
+    const sortOption = e.target.value as SortType;
+    url.searchParams.set("sort", sortOption);
+    router.push(url.pathname + url.search);
   };
 
   return (
@@ -129,7 +136,7 @@ const Page = () => {
                   className="px-5"
                   options={sortOptions}
                   disabled={!data || data.total === 0}
-                  onChange={e => setSortOption(e.target.value as SortType)}
+                  onChange={handleSortOptionChange}
                 />
               </div>
               {data ? (
