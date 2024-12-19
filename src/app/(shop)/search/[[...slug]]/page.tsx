@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CategoryFilter from "./filters/category";
 import PriceFilter from "./filters/price";
 import Dropdown from "@/components/ui/dropdown";
@@ -33,11 +33,21 @@ const Page = () => {
     max: 0,
   });
   const { slug } = useParams();
-  const breadcrumbItems = slug ? ["Search", ...slug] : ["Search"];
   const category = slug?.[0];
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const router = useRouter();
+
+  const breadcrumbItems = useMemo(() => {
+    const items = ["Search"];
+    if (category) {
+      items.push(category);
+    }
+    if (query) {
+      items.push(query);
+    }
+    return items;
+  }, [category, query]);
 
   useEffect(() => {
     const fetch = async () => {
