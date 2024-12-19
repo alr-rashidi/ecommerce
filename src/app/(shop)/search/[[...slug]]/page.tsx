@@ -24,6 +24,7 @@ const sortOptions: sortOptionsType = [
 
 const Page = () => {
   const [data, setData] = useState<APIProductGetType>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [sortOption, setSortOption] = useState<SortType>("newest");
@@ -41,7 +42,7 @@ const Page = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        setData(undefined);
+        setIsLoading(true);
 
         const data = await fetchProducts({
           query,
@@ -60,6 +61,8 @@ const Page = () => {
         }
       } catch {
         setIsError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -95,6 +98,9 @@ const Page = () => {
           <PriceFilter setPriceRange={setPriceRange} priceRange={priceRange} />
         </div>
         <div className="flex flex-col col-span-9">
+          {isLoading && (
+            <div className="text-center text-neutral-500">Loading...</div>
+          )}
           {isError ? (
             <div className="text-center text-red-500">
               An error occurred while fetching products
@@ -112,6 +118,7 @@ const Page = () => {
                   variant="outlineAlt"
                   className="px-5"
                   options={sortOptions}
+                  disabled={!data || data.total === 0}
                   onChange={e => setSortOption(e.target.value as SortType)}
                 />
               </div>
