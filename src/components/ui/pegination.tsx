@@ -15,7 +15,7 @@ const Pegination = ({
   return (
     <div className={`flex justify-center items-center gap-2 ${className}`}>
       <button
-        className="flex items-center justify-center text-sm font-bold text-neutral-500 disabled:text-neutral-300 rounded aspect-square size-6"
+        className="flex items-center justify-center text-sm font-bold text-neutral-500 disabled:opacity-30 rounded aspect-square size-6"
         onClick={() => handlePageChange(page - 1)}
         disabled={page == 1}
       >
@@ -67,7 +67,7 @@ const Pegination = ({
         </button>
       )}
       <button
-        className="flex items-center justify-center text-sm font-bold text-neutral-500 disabled:text-neutral-300 rounded aspect-square size-6"
+        className="flex items-center justify-center text-sm font-bold text-neutral-500 disabled:opacity-30 rounded aspect-square size-6"
         onClick={() => handlePageChange(page + 1)}
         disabled={page == totalPages || totalPages == 0}
       >

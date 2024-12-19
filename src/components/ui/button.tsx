@@ -45,7 +45,7 @@ const Button = (props: ButtonProps) => {
 
   return (
     <button
-      className={`rounded-md transition ${classes}`}
+      className={`rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed ${classes}`}
       onClick={onClick}
       {...userProps}
     >

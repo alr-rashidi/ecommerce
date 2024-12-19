@@ -36,7 +36,7 @@ const Input = (props: InputProps) => {
 
   return (
     <input
-      className={`bg-transparent outline-none rounded-md transition ${classes}`}
+      className={`bg-transparent outline-none rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed ${classes}`}
       onClick={onClick}
       {...userProps}
     />

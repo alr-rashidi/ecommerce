@@ -37,7 +37,7 @@ const Dropdown = (props: DropdownProps) => {
 
   return (
     <select
-      className={`rounded-md transition bg-transparent ${classes}`}
+      className={`rounded-md transition bg-transparent disabled:opacity-50 disabled:cursor-not-allowed ${classes}`}
       onClick={onClick}
       {...userProps}
     >

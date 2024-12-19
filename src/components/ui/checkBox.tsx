@@ -34,7 +34,7 @@ const CheckBox = (props: CheckBoxProps) => {
 
   return (
     <input
-      className={`bg-transparent outline-none rounded-md transition ${classes}`}
+      className={`bg-transparent outline-none rounded-md transition disabled:opacity-50 ${classes}`}
       type="checkbox"
       onClick={onClick}
       {...userProps}
