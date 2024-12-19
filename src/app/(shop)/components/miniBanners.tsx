@@ -7,7 +7,7 @@ const MiniBanners = () => {
     <div className="max-lg:flex max-lg:flex-col grid grid-cols-4 grid-rows-5 max-lg:h-full max-lg:w-full h-[80vh] max-w-[90rem] mx-auto max-lg:max-h-max max-h-[40rem] ">
       <div className="row-start-1 col-span-2 row-span-3 flex max-lg:flex-col max-lg:p-8 gap-4 items-center bg-white">
         <Image
-          src="/assets/playstation.png"
+          src="/assets/playbox.png"
           width={300}
           height={250}
           className="max-lg:w-fit w-full max-lg:p-0 pr-10 h-full max-lg:max-h-64 object-cover object-right"
@@ -15,7 +15,7 @@ const MiniBanners = () => {
         />
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pr-16">
           <h3 className="w-max max-xl:text-4xl text-5xl font-semibold mb-2">
-            PlayStation 5
+            PlayBox 5
           </h3>
           <p className="max-xl:text-xs text-sm max-lg:text-center  text-neutral-500">
             Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will
@@ -33,7 +33,7 @@ const MiniBanners = () => {
         />
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pr-16 pl-4">
           <h3 className="w-max max-lg:text-3xl max-xl:text-lg text-2xl font-light mb-3">
-            Apple Airpods&nbsp;
+            My Airpods&nbsp;
             <br className="max-lg:hidden relative" />
             <span className="font-bold">Max</span>
           </h3>
@@ -52,7 +52,7 @@ const MiniBanners = () => {
         />
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pr-16 pl-4">
           <h3 className="w-max text-white max-lg:text-3xl max-xl:text-lg text-2xl font-light mb-3">
-            Apple Vision&nbsp;
+            My Vision&nbsp;
             <br className="max-lg:hidden relative" />
             <span className="font-bold">Pro</span>
           </h3>
@@ -64,7 +64,7 @@ const MiniBanners = () => {
       <div className="col-start-3 col-span-2 row-span-5 flex max-lg:flex-col-reverse max-lg:p-8 gap-4 max-lg:max-h-[40rem] items-center bg-neutral-200">
         <div className="flex flex-col max-lg:items-center max-lg:p-0 pl-16">
           <h2 className="w-max max-xl:text-4xl text-5xl font-extralight mb-2">
-            Macbook&nbsp;
+            Mybook&nbsp;
             <span className="font-bold">Air</span>
           </h2>
           <p className="max-xl:text-xs text-sm max-lg:text-center mb-4 text-neutral-500">

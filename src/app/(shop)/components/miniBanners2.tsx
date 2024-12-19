@@ -25,19 +25,19 @@ const items: ItemType[] = [
     link: "#",
   },
   {
-    title: "Ipad Pro",
+    title: "MyPad Pro Max",
     image: "/assets/miniBanner2-2.png",
     desc: "A sleek, versatile tablet for work and play with a vast app ecosystem",
     link: "#",
   },
   {
-    title: "Galexy Phone",
+    title: "Galexy Phone 8",
     image: "/assets/miniBanner2-3.png",
     desc: "premium smartphone with stunning displays and advanced camera features",
     link: "#",
   },
   {
-    title: "Macbook Pro",
+    title: "Gaming Laptop Pro",
     image: "/assets/miniBanner2-4.png",
     desc: "high-performance laptop known for its elegant design",
     link: "#",

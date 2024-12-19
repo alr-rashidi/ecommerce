@@ -8,7 +8,7 @@ const Banner = () => {
       <div className="flex flex-col max-lg:items-center py-20">
         <h3 className="font-semibold text-neutral-500">Pro.Beyond.</h3>
         <h1 className="text-6xl font-extralight text-white mb-1">
-          IPhone 14&nbsp;
+          MyPhone 14&nbsp;
           <span className="font-bold">Pro</span>
         </h1>
         <p className="text-sm font-medium text-neutral-500 mb-5">
@@ -20,11 +20,11 @@ const Banner = () => {
       </div>
       <div className="relative w-[300px] min-h-96 max-lg:min-h-72 h-full">
         <Image
-          src="/assets/iphone-pro.png"
+          src="/assets/myphone-pro.png"
           width={300}
           height={0}
           className="absolute top-20 max-lg:top-0 left-0 w-full"
-          alt="IPhone image"
+          alt="MyPhone image"
         />
       </div>
     </div>
