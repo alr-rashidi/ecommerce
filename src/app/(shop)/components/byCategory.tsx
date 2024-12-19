@@ -1,43 +1,38 @@
 "use client";
-import React, { useRef } from "react";
-import { IconType } from "react-icons/lib";
-import {
-  IoWatchOutline,
-  IoGameControllerOutline,
-  IoTabletPortraitSharp,
-  IoTvOutline,
-} from "react-icons/io5";
-import { PiHeadphones } from "react-icons/pi";
-import { TbDeviceMobile } from "react-icons/tb";
-import { BsCamera, BsSpeaker, BsLaptop, BsKeyboard } from "react-icons/bs";
-import { HiOutlineComputerDesktop } from "react-icons/hi2";
+import React, { useEffect, useRef, useState } from "react";
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { type Swiper as SwiperRef } from "swiper";
-
+import { categorySchema } from "@/server/validations/category";
+import { z } from "zod";
 import "swiper/css";
-
-type CategoriesType = {
-  name: string;
-  icon: IconType;
-  id: string;
-}[];
-const categories: CategoriesType = [
-  { name: "Phones", icon: TbDeviceMobile, id: "phone" },
-  { name: "Smart Watches", icon: IoWatchOutline, id: "smartwatch" },
-  { name: "Cameras", icon: BsCamera, id: "camera" },
-  { name: "Headphones", icon: PiHeadphones, id: "headphones" },
-  { name: "Computers", icon: HiOutlineComputerDesktop, id: "computer" },
-  { name: "Gaming", icon: IoGameControllerOutline, id: "gaming" },
-  { name: "Tablets", icon: IoTabletPortraitSharp, id: "tablet" },
-  { name: "TVs", icon: IoTvOutline, id: "tv" },
-  { name: "Speakers", icon: BsSpeaker, id: "speaker" },
-  { name: "Laptops", icon: BsLaptop, id: "laptop" },
-  { name: "Accessories", icon: BsKeyboard, id: "accessories" },
-];
+import { fetchData } from "@/hooks/fetchData";
 
 const ByCategory = () => {
+  const [categories, setCategories] = useState<
+    z.infer<typeof categorySchema>[]
+  >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        setIsLoading(true);
+        const data: z.infer<typeof categorySchema>[] =
+          await fetchData("/api/category");
+        setCategories(data);
+      } catch (err) {
+        console.log(err);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetch();
+  }, []);
+
   const swiperRef = useRef<SwiperRef>();
   return (
     <div className={`m-20 max-lg:max-w-[90vw] max-w-5xl px-8 mx-auto`}>
@@ -54,6 +49,12 @@ const ByCategory = () => {
           />
         </div>
       </div>
+      {isLoading && (
+        <div className="text-center text-neutral-500">Loading...</div>
+      )}
+      {isError && (
+        <div className="text-center text-red-500">Error fetching data</div>
+      )}
       <Swiper
         breakpoints={{
           0: {
@@ -74,12 +75,15 @@ const ByCategory = () => {
         }}
       >
         {categories.map(category => (
-          <SwiperSlide key={category.id}>
+          <SwiperSlide key={category._id}>
             <Link
-              href="#"
+              href={`/search/${category._id}`}
               className="w-full h-32 flex flex-col gap-2 items-center justify-center rounded-2xl p-4 bg-neutral-200 hover:bg-neutral-200/80 text-neutral-900 hover:text-black transition"
             >
-              <category.icon size={48} />
+              <div
+                className="size-8"
+                dangerouslySetInnerHTML={{ __html: category.icon }}
+              />
               <span className="text-sm text-center font-medium">
                 {category.name}
               </span>
