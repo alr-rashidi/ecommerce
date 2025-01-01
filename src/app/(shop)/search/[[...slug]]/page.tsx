@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CategoryFilter from "./filters/category";
 import PriceFilter from "./filters/price";
 import Dropdown from "@/components/ui/dropdown";
@@ -8,8 +8,9 @@ import { fetchProducts } from "@/hooks/fetchProducts";
 import { Error } from "mongoose";
 import { APIProductGetType, SortType } from "@/app/api/product/route";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { FaChevronRight } from "react-icons/fa6";
 import Pegination from "@/components/ui/pegination";
+import Loading from "../../loading";
+import SearchBreadCrumb from "./components/breadCrumb";
 
 type sortOptionsType = {
   value: SortType;
@@ -22,12 +23,14 @@ const sortOptions: sortOptionsType = [
   { value: "discount", label: "Discount" },
 ];
 
+type StatusType = "success" | "loading" | "error";
+type PriceRangeType = { min: number; max: number };
+
 const Page = () => {
   const [data, setData] = useState<APIProductGetType>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [status, setStatus] = useState<StatusType>("loading");
   const [page, setPage] = useState(1);
-  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
+  const [priceRange, setPriceRange] = useState<PriceRangeType>({
     min: 0,
     max: 0,
   });
@@ -37,21 +40,10 @@ const Page = () => {
   const query = searchParams.get("q") || "";
   const router = useRouter();
 
-  const breadcrumbItems = useMemo(() => {
-    const items = ["Search"];
-    if (category) {
-      items.push(category);
-    }
-    if (query) {
-      items.push(query);
-    }
-    return items;
-  }, [category, query]);
-
   useEffect(() => {
     const fetch = async () => {
       try {
-        setIsLoading(true);
+        setStatus("loading");
         const sortOption = searchParams.get("sort") || "newest";
 
         const fetchedData = await fetchProducts({
@@ -67,12 +59,11 @@ const Page = () => {
           throw fetchedData;
         } else {
           setData(fetchedData);
-          setIsError(false);
+          setStatus("success");
         }
-      } catch {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+        setStatus("error");
       }
     };
 
@@ -93,32 +84,14 @@ const Page = () => {
 
   return (
     <div className="flex flex-col max-w-5xl mx-auto mb-5">
-      <div className="text-neutral-500 font-semibold my-4">
-        {breadcrumbItems.map((item, i) => (
-          <button
-            key={i}
-            className={`text-sm font-semibold ${i === breadcrumbItems.length - 1 ? "text-primary" : "text-neutral-400"}`}
-            onClick={() => {
-              router.push("/search/" + (item === "Search" ? "" : item));
-            }}
-          >
-            {item}
-            {i < breadcrumbItems.length - 1 && (
-              <FaChevronRight className="mx-3 inline" />
-            )}
-          </button>
-        ))}
-      </div>
+      <SearchBreadCrumb category={category} query={query} />
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-3">
           {category == undefined && <CategoryFilter />}
           <PriceFilter setPriceRange={setPriceRange} priceRange={priceRange} />
         </div>
         <div className="flex flex-col col-span-9">
-          {isLoading && (
-            <div className="text-center text-neutral-500">Loading...</div>
-          )}
-          {isError ? (
+          {status === "error" ? (
             <div className="text-center text-red-500">
               An error occurred while fetching products
             </div>
@@ -139,11 +112,13 @@ const Page = () => {
                   onChange={handleSortOptionChange}
                 />
               </div>
-              {data ? (
+              {status === "success" && data ? (
                 <ProductsGrid
                   products={data.products}
                   className="lg:grid-cols-3"
                 />
+              ) : status === "loading" ? (
+                <Loading />
               ) : (
                 <div className="text-center text-neutral-500">
                   No products found
@@ -151,7 +126,7 @@ const Page = () => {
               )}
             </>
           )}
-          {data && (
+          {data && data.total > 0 && (
             <Pegination
               page={page}
               handlePageChange={handlePageChange}
