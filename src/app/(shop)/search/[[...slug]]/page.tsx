@@ -54,7 +54,7 @@ const Page = () => {
         setIsLoading(true);
         const sortOption = searchParams.get("sort") || "newest";
 
-        const data = await fetchProducts({
+        const fetchedData = await fetchProducts({
           query,
           sort: sortOption,
           page: page,
@@ -63,10 +63,10 @@ const Page = () => {
           maxPrice: priceRange.max,
         });
 
-        if (data instanceof Error) {
-          throw data;
+        if (fetchedData instanceof Error) {
+          throw fetchedData;
         } else {
-          setData(data);
+          setData(fetchedData);
           setIsError(false);
         }
       } catch {
