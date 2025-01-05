@@ -43,8 +43,7 @@ const CategoryFilter = () => {
   };
 
   return (
-    <div>
-      <ItemHeader title="Category" />
+    <ItemHeader title="Category">
       {isLoading && <div>Loading categories...</div>}
       {categories.length > 0 ? (
         <Items
@@ -55,7 +54,7 @@ const CategoryFilter = () => {
       ) : (
         <span>No categories found</span>
       )}
-    </div>
+    </ItemHeader>
   );
 };
 
