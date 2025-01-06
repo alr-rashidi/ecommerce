@@ -1,8 +1,7 @@
 import Header from "@/components/Header";
 import { Inter } from "next/font/google";
-import React, { Suspense } from "react";
+import React from "react";
 import Footer from "./components/footer";
-import Loading from "./loading";
 
 type layoutProps = {
   children: React.ReactNode;
@@ -16,7 +15,7 @@ const layout = ({ children }: layoutProps) => {
   return (
     <div className={`${inter.className} pt-14 lg:pt-28`}>
       <Header />
-      <Suspense fallback={<Loading />}>{children}</Suspense>
+      {children}
       <Footer />
     </div>
   );
