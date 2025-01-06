@@ -1,16 +1,22 @@
+import { APIProductGetType } from "@/app/api/product/route";
 import ProductSlider from "@/components/product/productSlider";
-import { fetchProducts } from "@/hooks/fetchProducts";
+import { fetchData } from "@/lib/api";
 import React from "react";
 
 const SmartphoneSlider = async () => {
-  const data = await fetchProducts({ category: "673cb21f936e398308d6f692" });
+  const { data, error, ok } = await fetchData<APIProductGetType>(
+    "/api/product?category=673cb21f936e398308d6f692"
+  );
+
+  if (!ok || !data) {
+    return error ?? "Error fetching products!";
+  }
+
   return (
-    <div>
-      <ProductSlider
-        title="Upgrade to the latest smartphones today!"
-        products={data.products}
-      />
-    </div>
+    <ProductSlider
+      title="Upgrade to the latest smartphones today!"
+      products={data.products}
+    />
   );
 };
 

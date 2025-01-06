@@ -1,8 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProductsGrid from "@/components/product/productGrid";
-import { APIProductGetType, SortType } from "@/app/api/product/route";
-import { fetchProducts } from "@/hooks/fetchProducts";
+import { useFetchProducts } from "@/hooks/useFetchProducts";
+import { SortType } from "@/app/api/product/route";
+import Loading from "../loading";
+import ErrorCard from "@/components/ui/errorCard";
 
 type TabType = {
   value: SortType;
@@ -16,20 +18,11 @@ const tabs: TabType[] = [
 
 const Products = () => {
   const [selectedTab, setSelectedTab] = useState<SortType>("newest");
-  const [data, setData] = useState<APIProductGetType>();
-  const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-
-      const data = await fetchProducts({ sort: selectedTab, limit: 8 });
-      setData(data);
-      setLoading(false);
-    };
-
-    getData();
-  }, [selectedTab]);
+  const { data, isLoading, error, ok } = useFetchProducts({
+    sort: selectedTab,
+    limit: 8,
+  });
 
   return (
     <div className="flex flex-col gap-4 m-20 max-lg:max-w-[90vw] max-w-5xl px-8 mx-auto">
@@ -44,9 +37,13 @@ const Products = () => {
           </button>
         ))}
       </div>
-      {loading ? (
-        <span>Loading...</span>
-      ) : data ? (
+      {isLoading ? (
+        <Loading />
+      ) : !ok ? (
+        <ErrorCard
+          message={error ?? "An error occurred while fetching products"}
+        />
+      ) : data && data.products.length > 0 ? (
         <ProductsGrid
           products={data.products}
           showMoreLink={`/search?sort=${selectedTab}`}

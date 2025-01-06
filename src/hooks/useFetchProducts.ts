@@ -1,5 +1,6 @@
 import { APIProductGetType } from "@/app/api/product/route";
-import { Error } from "mongoose";
+import { useFetch, UseFetchResultType } from "./useFetch";
+import { useMemo } from "react";
 
 type FetchProductsPropsType = {
   query?: string;
@@ -10,9 +11,10 @@ type FetchProductsPropsType = {
   minPrice?: number;
   maxPrice?: number;
 };
-export const fetchProducts = async (
+
+export const useFetchProducts = (
   props?: FetchProductsPropsType
-): Promise<APIProductGetType> => {
+): UseFetchResultType<APIProductGetType> => {
   const {
     query,
     sort,
@@ -22,8 +24,11 @@ export const fetchProducts = async (
     minPrice,
     maxPrice,
   } = props || {};
+  const url = useMemo(
+    () => new URL(`/api/product`, process.env.NEXT_PUBLIC_API_BASE_URL),
+    []
+  );
 
-  const url = new URL(`/api/product`, process.env.NEXT_PUBLIC_API_BASE_URL);
   url.searchParams.set("limit", String(limit));
   if (query) {
     url.searchParams.set("q", query);
@@ -44,17 +49,13 @@ export const fetchProducts = async (
     url.searchParams.set("maxPrice", String(maxPrice));
   }
 
-  try {
-    const response = await fetch(url.toString());
+  const response = useFetch<APIProductGetType>(url.toString());
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const products = await response.json();
-    return products;
-  } catch (err) {
-    console.error(err);
-    throw new Error(`Internal server error`);
-  }
+  const products = response.data as APIProductGetType;
+  return {
+    data: products,
+    isLoading: response.isLoading,
+    error: response.error,
+    ok: response.ok,
+  };
 };
